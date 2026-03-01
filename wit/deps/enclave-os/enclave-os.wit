@@ -1,0 +1,20 @@
+// privasys:enclave-os/https — matching the host's current wire format.
+//
+// The host uses func_new (dynamic/untyped), so the method is a raw u32
+// and the response is a tuple rather than a named record.
+//
+// method: 0=GET, 1=POST, 2=PUT, 3=DELETE, 4=PATCH, 5=HEAD, 6=OPTIONS
+
+package privasys:enclave-os@0.1.0;
+
+interface https {
+    /// Perform an HTTPS request. TLS terminates inside the enclave.
+    ///
+    /// Returns (status, headers, body) on success.
+    fetch: func(
+        method: u32,
+        url: string,
+        headers: list<tuple<string, string>>,
+        body: option<list<u8>>,
+    ) -> result<tuple<u16, list<tuple<string, string>>, list<u8>>, string>;
+}

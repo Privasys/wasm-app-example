@@ -1,0 +1,27 @@
+[package]
+name = "wasm-example"
+version = "0.1.0"
+edition = "2021"
+description = "Integration test WASM app for Enclave OS (Mini)"
+license = "AGPL-3.0"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wit-bindgen-rt = { version = "0.39", features = ["bitflags"] }
+
+[package.metadata.component]
+package = "privasys:test-app"
+
+[package.metadata.component.target.dependencies]
+"wasi:io" = { path = "wit/deps/io" }
+"wasi:clocks" = { path = "wit/deps/clocks" }
+"wasi:random" = { path = "wit/deps/random" }
+"wasi:filesystem" = { path = "wit/deps/filesystem" }
+"privasys:enclave-os" = { path = "wit/deps/enclave-os" }
+
+[profile.release]
+opt-level = "s"          # Size-optimised — smaller .wasm
+lto = true
+strip = "debuginfo"

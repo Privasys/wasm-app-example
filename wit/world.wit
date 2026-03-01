@@ -1,0 +1,23 @@
+package privasys:test-app;
+
+world test-app {
+    // ── WASI imports ──────────────────────────────────────────────
+    import wasi:io/error@0.2.0;
+    import wasi:io/poll@0.2.0;
+    import wasi:io/streams@0.2.0;
+    import wasi:random/random@0.2.0;
+    import wasi:clocks/wall-clock@0.2.0;
+    import wasi:filesystem/types@0.2.0;
+    import wasi:filesystem/preopens@0.2.0;
+
+    // ── Enclave OS platform import ────────────────────────────────
+    import privasys:enclave-os/https@0.1.0;
+
+    // ── Exported test functions ───────────────────────────────────
+    export hello: func() -> string;
+    export get-random: func() -> u32;
+    export get-time: func() -> string;
+    export kv-store: func(key: string, value: string) -> string;
+    export kv-read: func(key: string) -> string;
+    export fetch-headlines: func() -> string;
+}
