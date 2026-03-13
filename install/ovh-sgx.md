@@ -88,14 +88,13 @@ cargo install cargo-component
 git clone https://github.com/Privasys/enclave-os-mini.git
 cd enclave-os-mini
 
-mkdir -p build && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_WASM=ON -DWASM_ENCLAVE_DIR=$HOME/wasm-app-example/enclave
-make -j$(nproc)
+cmake -B build -DCMAKE_BUILD_TYPE=Release -DENABLE_WASM=ON
+cmake --build build -j$(nproc)
 ```
 
 Outputs in `build/bin/`:
 - `enclave-os-host` — untrusted host binary
-- `enclave-os-enclave.signed.so` — signed SGX enclave
+- `enclave.signed.so` — signed SGX enclave with WASM module
 
 ---
 

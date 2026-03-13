@@ -511,7 +511,7 @@ loaded dynamically — no apps need to be present at build time.
 
 The enclave terminates TLS internally — a front-end load balancer must operate
 at **Layer 4 (TCP passthrough)**. See the
-[Layer 4 Proxy Guide](https://github.com/Privasys/enclave-os-mini/blob/main/install/layer4-proxy.md)
+[Layer 4 Proxy Guide](https://github.com/Privasys/enclave-os-mini/blob/main/docs/layer4-proxy.md)
 for Caddy (with caddy-l4) and HAProxy configurations.
 
 For cloud-specific setup instructions, see:
