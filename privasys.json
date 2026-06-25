@@ -1,0 +1,12 @@
+{
+    "store": {
+        "tagline": "A minimal first WASM app for confidential enclaves — deploys and runs straight away.",
+        "category": "Developer Tools",
+        "keywords": "wasm, webassembly, example, starter, enclave os, sgx, confidential computing, attestation, mcp, sealed storage",
+        "website_url": "https://privasys.org",
+        "support_email": "contact@privasys.org",
+        "privacy_url": "https://privasys.org/legal/privacy/",
+        "tos_url": "https://privasys.org/legal/terms/",
+        "description": "WASM Example is the smallest complete application for the Privasys WASM runtime. It exercises every core host capability an enclave app can use, with no configuration step and no freeze gate, so it deploys and serves traffic immediately.\n\nWHAT IT DEMONSTRATES\n- A hello smoke test with no host imports.\n- Hardware randomness (RDRAND) read from inside the enclave.\n- Wall-clock time via a host call.\n- A per-app sealed key-value store: data is encrypted at rest and never visible to the host.\n- Attestable HTTPS egress, with TLS terminating inside the enclave.\n- A typed analysis function (records, enums, options) that doubles as an MCP tool.\n- Authenticated-only and role-gated endpoints, enforced by the runtime before your code runs.\n\nWHO IT IS FOR\nDevelopers taking their first step on the platform. Clone it, build to .cwasm, deploy, and verify it with remote attestation. When you need to inject a secret at deploy time and gate the app until it is configured, graduate to the companion app, WASM Example (with config)."
+    }
+}
