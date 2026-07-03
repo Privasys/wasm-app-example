@@ -3,7 +3,7 @@ name = "wasm-example"
 version = "0.1.0"
 edition = "2021"
 description = "Integration test WASM app for Enclave OS (Mini)"
-license = "AGPL-3.0"
+license = "MIT"
 
 [lib]
 crate-type = ["cdylib"]

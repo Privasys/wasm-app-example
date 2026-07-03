@@ -1,5 +1,5 @@
-// Copyright (c) Privasys. All rights reserved.
-// Licensed under the GNU Affero General Public License v3.0. See LICENSE file for details.
+// Copyright (c) 2026 Privasys.
+// Licensed under the MIT License. See LICENSE file for details.
 
 //! # WASM Example App
 //!
