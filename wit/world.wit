@@ -47,13 +47,7 @@ world test-app {
     export get-random: func() -> u32;
 
     /// Return the current wall-clock time as seconds.nanoseconds (UTC).
-    ///
-    /// Priced without a wallet exemption (contrast with auth-hello): every
-    /// caller pays 5,000 credits (0.5p) per successful call, so this also
-    /// demonstrates that a caller-priced function requires an authenticated
-    /// caller even though its auth policy is public.
     /// @auth public
-    /// @price {"credits":5000,"payer":"caller"}
     export get-time: func() -> string;
 
     /// Store a value in the enclave's sealed key-value store.
@@ -128,4 +122,15 @@ world test-app {
     /// the function itself is role-unaware.
     /// @auth role(hello-role)
     export role-hello: func() -> auth-hello-result;
+
+    /// A paid API demonstrating x-privasys.price end to end: each
+    /// successful call charges the caller 5,000 credits (0.5p), of which
+    /// the app developer earns 85%. No exemptions — every caller pays.
+    ///
+    /// The price is declared here in the measured WIT, enforced by the
+    /// attested runtime, and charged only on success: the fee a caller
+    /// pays is exactly the price this annotation advertises.
+    /// @auth authenticated
+    /// @price {"credits":5000,"payer":"caller"}
+    export priced-hello: func() -> auth-hello-result;
 }

@@ -180,6 +180,28 @@ impl Guest for TestApp {
         }
     }
 
+    // ── 8b. Priced Hello (paid API — x-privasys.price) ──────────────
+
+    fn priced_hello() -> bindings::AuthHelloResult {
+        use bindings::privasys::enclave_os::auth;
+
+        // Payment is enforced by the attested runtime, not by this code:
+        // the @price annotation rides the measured configuration, the
+        // runtime requires an authenticated caller, and the fee is
+        // recorded only when this function returns successfully.
+        let caller = auth::get_caller_id().unwrap_or_else(|e| format!("unknown ({e})"));
+        let roles = auth::get_my_roles().unwrap_or_else(|_| Vec::new());
+        let ts = bindings::wasi::clocks::wall_clock::now();
+        bindings::AuthHelloResult {
+            caller,
+            roles,
+            message: "Hello from inside the enclave — this call charged you 5,000 credits (the developer earns 85%)".to_string(),
+            timestamp_seconds: ts.seconds,
+            timestamp_nanos: ts.nanoseconds,
+            enclave: "sgx".to_string(),
+        }
+    }
+
     // ── 9. Role Hello (requires "hello-role") ───────────────────────
 
     fn role_hello() -> bindings::AuthHelloResult {
