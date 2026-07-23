@@ -202,6 +202,27 @@ impl Guest for TestApp {
         }
     }
 
+    // ── 8c. Priced Hello, wallet-exempt (x-privasys.price) ──────────
+
+    fn priced_hello_exempt_wallet() -> bindings::AuthHelloResult {
+        use bindings::privasys::enclave_os::auth;
+
+        // The fee and the wallet exemption are both enforced by the attested
+        // runtime before this function runs: a wallet-class caller is charged
+        // nothing, anyone else must have pre-approved exactly 10,000 credits.
+        let caller = auth::get_caller_id().unwrap_or_else(|e| format!("unknown ({e})"));
+        let roles = auth::get_my_roles().unwrap_or_else(|_| Vec::new());
+        let ts = bindings::wasi::clocks::wall_clock::now();
+        bindings::AuthHelloResult {
+            caller,
+            roles,
+            message: "Hello from inside the enclave — this call charges 10,000 credits, but wallet users are exempt".to_string(),
+            timestamp_seconds: ts.seconds,
+            timestamp_nanos: ts.nanoseconds,
+            enclave: "sgx".to_string(),
+        }
+    }
+
     // ── 9. Role Hello (requires "hello-role") ───────────────────────
 
     fn role_hello() -> bindings::AuthHelloResult {

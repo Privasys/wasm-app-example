@@ -105,14 +105,7 @@ world test-app {
     /// The runtime enforces the auth policy declared below before
     /// the function is called — the app itself does not need to
     /// check credentials.
-    ///
-    /// Also demonstrates a developer-set per-call API fee
-    /// (x-privasys.price): each successful call charges the caller
-    /// 10,000 credits (1p), of which the app owner earns 85%. Wallet
-    /// users are exempt. The price is part of the measured app
-    /// configuration, so the fee charged is exactly the attested price.
     /// @auth authenticated
-    /// @price {"credits":10000,"payer":"caller","free_for":["wallet"]}
     export auth-hello: func() -> auth-hello-result;
 
     /// Return a greeting that requires the caller to hold the
@@ -133,4 +126,13 @@ world test-app {
     /// @auth authenticated
     /// @price {"credits":5000,"payer":"caller"}
     export priced-hello: func() -> auth-hello-result;
+
+    /// A paid API with a wallet exemption: each successful call charges
+    /// the caller 10,000 credits (1p), except callers whose token carries
+    /// the Privasys wallet class marker — they pay nothing (the developer
+    /// still bears the compute, a deliberate adoption lever). Clients show
+    /// wallet users a "free for you" badge instead of the charge consent.
+    /// @auth authenticated
+    /// @price {"credits":10000,"payer":"caller","free_for":["wallet"]}
+    export priced-hello-exempt-wallet: func() -> auth-hello-result;
 }
