@@ -47,7 +47,13 @@ world test-app {
     export get-random: func() -> u32;
 
     /// Return the current wall-clock time as seconds.nanoseconds (UTC).
+    ///
+    /// Priced without a wallet exemption (contrast with auth-hello): every
+    /// caller pays 5,000 credits (0.5p) per successful call, so this also
+    /// demonstrates that a caller-priced function requires an authenticated
+    /// caller even though its auth policy is public.
     /// @auth public
+    /// @price {"credits":5000,"payer":"caller"}
     export get-time: func() -> string;
 
     /// Store a value in the enclave's sealed key-value store.
